@@ -1,8 +1,9 @@
-pnp4nagios
+abstractit-pnp4nagios
 ====
 
 ####Table of Contents
 
+0. [New stuff and bug fixes](#new)
 1. [Overview - What is the pnp4nagios module?](#overview)
 2. [Module Description - What does the module do?](#module-description)
 3. [Setup - The basics of getting started with pnp4nagios](#setup)
@@ -11,6 +12,13 @@ pnp4nagios
 6. [Limitations - OS compatibility, etc.](#limitations)
 7. [Development - Guide for contributing to the module](#development)
 8. [Release Notes - Notes on the most recent updates to the module](#release-notes)
+
+New stuff and bug fixes
+-----------------------
+
+I recently started a consulting company called Abstract IT Pty Ltd. I have transfered ownership of all my puppet modules to a new organisation on Puppet Forge called abstractit.
+I am making one final release of my modules under rendhalver and abstractit to give you a chance to switch over to the new organisation.
+I have also added a licence. All my modules will be licenced under Apache v2.
 
 Overview
 --------
@@ -66,6 +74,11 @@ If you wish to join in let me know.
 
 Release Notes
 -------------
+
+**0.1.1**
+
+Final release for rendhalver-nrpe.
+First release as abstractit-nrpe.
 
 **0.1.0**
 
