@@ -8,7 +8,7 @@ class pnp4nagios::params {
   $debug_lvl       = 0
   if defined(Class['icinga']) {
     $user  = $::icinga::icinga_user
-    $group = $::icinga::icinga_group
+    $group = $::apache::group
   } else {
     case $::lsbdistcodename {
       'trusty': {
