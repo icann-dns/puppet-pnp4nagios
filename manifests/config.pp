@@ -5,6 +5,7 @@ class pnp4nagios::config (
   $group           = $::pnp4nagios::group,
   $log_type        = $::pnp4nagios::log_type,
   $debug_lvl       = $::pnp4nagios::debug_lvl
+  $monitoring_type = $::pnp4nagios::monitoring_type
 ) {
 
   file { '/etc/pnp4nagios/npcd.cfg':

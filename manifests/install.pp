@@ -7,7 +7,7 @@ class pnp4nagios::install (
 ) {
 
   if $monitoring_type == 'icinga' {
-    $packages = ['pnp4nagios', 'icinga-web-module-pnp']
+    $packages = ['pnp4nagios', 'icinga-web-pnp']
   } else {
     $packages = ['pnp4nagios']
   }
