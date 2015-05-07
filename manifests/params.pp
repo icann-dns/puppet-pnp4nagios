@@ -1,16 +1,24 @@
+# Default paramaters
+#
 
-class pnp4nagios::params (
-  $ensure = present,
-  $monitoring_type = hiera('monitoring::params::monitoring_type'),
-  $log_type = 'file',
-  $debug_lvl = 0,
-) {
-  # check log_type
-  validate_re($log_type, '^(syslog|file)$',
-  "${log_type} is not supported for log_type.
-  Allowed values are 'syslog' and 'file'.")
-  # check monitoring_type
-  validate_re($monitoring_type, '^(icinga|nagios)$',
-  "${monitoring_type} is not supported for monitoring_type.
-  Allowed values are 'icinga' and 'nagios'.")
+class pnp4nagios::params {
+  $ensure          = present
+  $monitoring_type = 'icinga'
+  $log_type        = 'file'
+  $debug_lvl       = 0
+  if defined(Class['icinga']) {
+    $user  = $::icinga::icinga_user
+    $group = $::icinga::icinga_group
+  } else {
+    case $::lsbdistcodename {
+      'trusty': {
+        $user  = 'nagios'
+        $group = 'nagios'
+      }
+      default: {
+        $user  = 'icinga'
+        $group = 'icinga'
+      }
+    }
+  }
 }

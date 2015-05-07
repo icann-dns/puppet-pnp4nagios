@@ -1,13 +1,17 @@
-class pnp4nagios::install {
-  #  include pnp4nagios::params
-  $ensure = $pnp4nagios::params::ensure
+# Install pnp4nagios
+#
 
-  package { 'pnp4nagios':
-    ensure => $ensure,
-  }
+class pnp4nagios::install (
+  $ensure          = $::pnp4nagios::ensure,
+  $monitoring_type = $::pnp4nagios::monitoring_type
+) {
+
   if $monitoring_type == 'icinga' {
-    package { 'icinga-web-module-pnp':
-      ensure => $ensure,
-    }
+    $packages = ['pnp4nagios', 'icinga-web-module-pnp']
+  } else {
+    $packages = ['pnp4nagios']
+  }
+  package { $packages:
+    ensure => $ensure,
   }
 }

@@ -1,11 +1,15 @@
+# Manage service
+#
 
-class pnp4nagios::service {
-  $ensure = $pnp4nagios::params::ensure ? { present => true, absent => false }
+class pnp4nagios::service (
+  $ensure = $::pnp4nagios::ensure
+) {
+  $enable = $ensure ? { present => true, absent => false }
 
-  case $lsbdistdescription {
+  case $::lsbdistdescription {
     ## some tricky logic to use systemd on fedora 17+
     /Fedora release (.+)/: {
-      if versioncmp($1,"17") >= 0 {
+      if versioncmp($1,'17') >= 0 {
         $servicename = 'npcd.service'
         $provider = 'systemd'
       }
@@ -15,14 +19,12 @@ class pnp4nagios::service {
       $provider = undef
     }
   }
-  service { 'npcd':
-    name => $servicename,
-    provider => $provider,
-    ensure => $ensure,
-    enable => $ensure,
-    hasstatus => true,
+  service { $servicename:
+    ensure     => $ensure,
+    provider   => $provider,
+    enable     => $enable,
+    hasstatus  => true,
     hasrestart => true,
   }
-
 }
 

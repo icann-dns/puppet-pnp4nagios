@@ -40,10 +40,20 @@
 #
 # Copyright 2013 Pete Brown, unless otherwise noted.
 #
-class pnp4nagios {
-  class{'pnp4nagios::params':} ->
+class pnp4nagios (
+  $ensure          = $::pnp4nagios::params::ensure,
+  $monitoring_type = $::pnp4nagios::params::monitoring_type,
+  $log_type        = $::pnp4nagios::params::log_type,
+  $debug_lvl       = $::pnp4nagios::params::debug_lvl
+) inherits ::pnp4nagios::params {
+
+  validate_re($ensure, '^(present|absent)$')
+  validate_re($log_type, '^(syslog|file)$',
+    "${log_type} is not supported for log_type.  Allowed values are 'syslog' and 'file'.")
+  validate_re($monitoring_type, '^(icinga|nagios)$',
+    "${monitoring_type} is not supported for monitoring_type.  Allowed values are 'icinga' and 'nagios'.")
+  validate_integer($debug_lvl)
   class{'pnp4nagios::install':} ->
   class{'pnp4nagios::config':} ~>
-  class{'pnp4nagios::service':} ->
-  Class["pnp4nagios"]
+  class{'pnp4nagios::service':} 
 }
