@@ -4,7 +4,14 @@
 class pnp4nagios::service (
   $ensure = $::pnp4nagios::ensure
 ) {
-  $enable = $ensure ? { present => true, absent => false }
+  if $ensure == 'present' { 
+    $enable         = true
+    $service_ensure = 'running'
+  } else {
+    $enable         = true
+    $service_ensure = 'stopped'
+  }
+
 
   case $::lsbdistdescription {
     ## some tricky logic to use systemd on fedora 17+
@@ -20,7 +27,7 @@ class pnp4nagios::service (
     }
   }
   service { $servicename:
-    ensure     => $ensure,
+    ensure     => $service_ensure,
     provider   => $provider,
     enable     => $enable,
     hasstatus  => true,
