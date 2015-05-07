@@ -45,6 +45,12 @@ class pnp4nagios::config (
     group  => $group,
     mode   => '0775',
   }
+  file { '/var/lib/pnp4nagios/perfdata':
+    ensure => directory,
+    owner  => $user,
+    group  => $group,
+    mode   => '0775',
+  }
 
   file { '/var/spool/pnp4nagios':
     ensure => directory,
