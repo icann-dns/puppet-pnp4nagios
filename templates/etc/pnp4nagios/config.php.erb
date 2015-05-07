@@ -69,7 +69,7 @@ $conf['pdf_graph_opt'] = "";
 #
 # Directory where the RRD Files will be stored
 #
-$conf['rrdbase'] = "/var/lib/pnp4nagios/";
+$conf['rrdbase'] = "/var/lib/pnp4nagios/perfdata/";
 #
 # Location of "page" configs
 #
@@ -230,13 +230,19 @@ $conf['RRD_DAEMON_OPTS'] = '';
 # Add your own template directories here
 # First match wins!
 #$conf['template_dirs'][] = '/usr/local/check_mk/pnp-templates';
-$conf['template_dirs'][] = '/usr/share/nagios/html/pnp4nagios/templates';
-$conf['template_dirs'][] = '/usr/share/nagios/html/pnp4nagios/templates.dist';
+$conf['template_dirs'][] = '/etc/pnp4nagios/templates';
+$templates_d = glob("/etc/pnp4nagios/templates.d/*", GLOB_ONLYDIR);
+if (is_array($templates_d) && (count($templates_d) > 0)) {
+  confforeach ($templates_d as $dirname) {
+    template_dirs$conf['template_dirs'][] = "$dirname";
+  conf}
+}
+$conf['template_dirs'][] = '/usr/share/pnp4nagios/html/templates.dist';
 
 #
 # Directory to search for special templates
 #
-$conf['special_template_dir'] = '/usr/share/nagios/html/pnp4nagios/templates.special';
+$conf['special_template_dir'] = '/etc/pnp4nagios/templates.special';
 
 #
 # Regex to detect mobile devices
