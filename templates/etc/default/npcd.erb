@@ -1,0 +1,7 @@
+<%- if @enable -%>
+RUN="yes"
+<%- else -%>
+RUN="no"
+<%- end -%>
+DAEMON_OPTS="-d -f /etc/pnp4nagios/npcd.cfg"
+

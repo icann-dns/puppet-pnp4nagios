@@ -4,7 +4,7 @@
 class pnp4nagios::service (
   $ensure = $::pnp4nagios::ensure
 ) {
-  if $ensure == 'present' { 
+  if $ensure == 'present' {
     $enable         = true
     $service_ensure = 'running'
   } else {
@@ -32,6 +32,11 @@ class pnp4nagios::service (
     enable     => $enable,
     hasstatus  => true,
     hasrestart => true,
+  }
+  if $::osfamily == 'Debian' {
+    file {'/etc/default/npcd':
+      content => template('pnp4nagios/etc/default/npcd.erb'),
+    }
   }
 }
 
