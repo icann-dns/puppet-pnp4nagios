@@ -233,9 +233,9 @@ $conf['RRD_DAEMON_OPTS'] = '';
 $conf['template_dirs'][] = '/etc/pnp4nagios/templates';
 $templates_d = glob("/etc/pnp4nagios/templates.d/*", GLOB_ONLYDIR);
 if (is_array($templates_d) && (count($templates_d) > 0)) {
-  confforeach ($templates_d as $dirname) {
-    template_dirs$conf['template_dirs'][] = "$dirname";
-  conf}
+  foreach ($templates_d as $dirname) {
+    $conf['template_dirs'][] = "$dirname";
+  }
 }
 $conf['template_dirs'][] = '/usr/share/pnp4nagios/html/templates.dist';
 
